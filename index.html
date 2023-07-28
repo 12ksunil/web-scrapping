@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="uTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>TechNews Post</title>
+    <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="mb-10 top-1 w-screen flex flex-col justify-center items-center">
+      <img
+        src="https://media.licdn.com/dms/image/C4D0BAQETpzsMbN9eQA/company-logo_200_200/0/1680167009798?e=2147483647&v=beta&t=2mc_dsdvNz8SlOM4y9-OO6vQBRoDCYpb0Oud0KMh39s"
+        class="w-64 h-64"
+        alt="Logo Image"
+      />
+    </div>
+    <div
+      class="bottom-6 m-auto relative"
+      id="container"
+      style="width: 700px; height: 700px"
+    >
+      <img id="bg" src="" alt="bgImage" />
+      <span
+        class="font-mono text-lg absolute text-black whitespace-pre-line text-justify"
+        id="News"
+        style="width: 550px; top: 180px; left: 80px; line-height: 1.5em"
+        >{{News|safe}}
+      </span>
+    </div>
+    <div
+      id="canvasWrapper"
+      class="mb-10 w-screen flex justify-center items-center"
+    >
+      <button
+        class="text-white p-3 rounded-md font-sans text-xl bg-gradient-to-r from-green-400 to to-blue-500 hover:from-pink-500 hover:to-yellow-500"
+        onclick="download()"
+      >
+        Download Post
+      </button>
+    </div>
+
+    <script>
+      var newbg = document.getElementById("bg");
+      var background = new Image();
+      background.src =
+        "https://i.pinimg.com/736x/b7/aa/e8/b7aae875a03809f0cc15a267d90ab7a3.jpg";
+      newbg.src = background.src;
+    </script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script>
+      function download() {
+        const captureElement = document.querySelector("#container");
+        html2canvas(captureElement)
+          .then((canvas) => {
+            canvas.style.display = "none";
+            document.body.appendChild(canvas);
+            return canvas;
+          })
+          .then((canvas) => {
+            const image = canvas.toDataURL("image/jpeg");
+            const a = document.createElement("a");
+            a.setAttribute("download", "mybg.jpeg");
+            a.setAttribute("href", image);
+            a.click();
+            canvas.remove();
+          });
+      }
+    </script>
+  </body>
+</html>
